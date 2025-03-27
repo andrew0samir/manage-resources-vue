@@ -3,7 +3,9 @@
         <base-button @click="setSelectedTab('stored-resources')" :mode="storedResButtonMode">Stored Resources</base-button>
         <base-button @click="setSelectedTab('add-resources')" :mode="addResButtonMode">Add Resource</base-button>
     </base-card>
-    <component :is="selectedTab"></component>
+    <keep-alive>
+        <component :is="selectedTab"></component>
+    </keep-alive>
 </template>
 
 <script>
@@ -36,12 +38,22 @@ export default {
     },
     provide() {
         return {
-            resources: this.storedResources
+            resources: this.storedResources,
+            addResource: this.AddResource
         }
     },
     methods: {
         setSelectedTab(tab) {
             this.selectedTab = tab
+        },
+        AddResource(title , description , url){
+            this.storedResources.unshift({
+                id: new Date().toISOString(),
+                title,
+                description,
+                link: url
+            });
+            this.selectedTab = 'stored-resources';
         }
     },
     computed:{
