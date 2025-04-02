@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import LearningResource from '@/components/learning-resources/LearningResource.vue';
+import LearningResource from './LearningResource.vue';
 
 export default {
     inject: ['resources'],
